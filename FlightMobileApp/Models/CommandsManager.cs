@@ -1,10 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
+using System.IO;
 using System.Linq;
+using System.Net;
+using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Net.Sockets;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace FlightMobileApp.Models
 {
@@ -30,8 +36,9 @@ namespace FlightMobileApp.Models
         {
             simulator.Connect(serverIp, port);
             //innerSimulator.Connect(serverIp, innerPort);
-            simulator.Write("data\n");
-            this.start();
+            //simulator.Write("data\n");
+            //this.start();
+            this.getImage();
         }
 
         public void start()
@@ -91,7 +98,26 @@ namespace FlightMobileApp.Models
 
         public void getImage()
         {
-            this.innerSimulator.Write("get HOST:PORT/screenshot");
+            new Thread(delegate () {
+                while (true)
+                {
+                    string URL = String.Format("http" + "://localhost:5000/screenshot");
+                    WebRequest req = WebRequest.Create(URL);
+                    req.Method = "GET";
+                    req.Timeout = 3000;
+                    HttpWebResponse resp = null;
+                    resp = (HttpWebResponse)req.GetResponse();
+                    string result = null;
+                    using (Stream str = resp.GetResponseStream())
+                    {
+                        StreamReader strRead = new StreamReader(str);
+                        result = strRead.ReadToEnd();
+                        strRead.Close();
+                        var img = Bitmap.FromStream(strRead);
+                    }
+                    Thread.Sleep(1000);
+                }
+            }).Start();
         }
 
         private void createSetStrings()
