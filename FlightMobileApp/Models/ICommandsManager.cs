@@ -11,5 +11,6 @@ namespace FlightMobileApp.Models
         public void start();
         public void getImage();
         public void SetCommandValues(Command command);
+        public string imgToAnd();
     }
 }

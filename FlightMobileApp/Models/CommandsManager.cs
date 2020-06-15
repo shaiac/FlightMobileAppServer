@@ -22,6 +22,7 @@ namespace FlightMobileApp.Models
         bool[] isChanged = { false, false, false, false };
         Dictionary<string, string> setStrings;
         Dictionary<string, string> getStrings;
+        string image ="";
 
         public CommandsManager()
         {
@@ -113,7 +114,7 @@ namespace FlightMobileApp.Models
                         StreamReader strRead = new StreamReader(str);
                         result = strRead.ReadToEnd();
                         strRead.Close();
-                        var img = Bitmap.FromStream(strRead);
+                        image = result;
                     }
                     Thread.Sleep(1000);
                 }
@@ -160,6 +161,11 @@ namespace FlightMobileApp.Models
                 this.commandValues.Rudder = command.Rudder;
                 isChanged[3] = true;
             }
+        }
+
+        public string imgToAnd()
+        {
+            return this.image;
         }
     }
 }
