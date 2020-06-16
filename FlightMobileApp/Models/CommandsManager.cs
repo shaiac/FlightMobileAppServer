@@ -22,7 +22,6 @@ namespace FlightMobileApp.Models
         bool[] isChanged = { false, false, false, false };
         Dictionary<string, string> setStrings;
         Dictionary<string, string> getStrings;
-        string image ="";
 
         public CommandsManager()
         {
@@ -97,11 +96,8 @@ namespace FlightMobileApp.Models
             }
         }
 
-        public void getImage()
+        public string getImage()
         {
-            new Thread(delegate () {
-                while (true)
-                {
                     string URL = String.Format("http" + "://localhost:5000/screenshot");
                     WebRequest req = WebRequest.Create(URL);
                     req.Method = "GET";
@@ -114,11 +110,9 @@ namespace FlightMobileApp.Models
                         StreamReader strRead = new StreamReader(str);
                         result = strRead.ReadToEnd();
                         strRead.Close();
-                        image = result;
                     }
-                    Thread.Sleep(1000);
-                }
-            }).Start();
+            return result;
+
         }
 
         private void createSetStrings()
@@ -163,9 +157,5 @@ namespace FlightMobileApp.Models
             }
         }
 
-        public string imgToAnd()
-        {
-            return this.image;
-        }
     }
 }

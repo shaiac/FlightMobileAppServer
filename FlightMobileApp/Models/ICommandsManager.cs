@@ -9,8 +9,7 @@ namespace FlightMobileApp.Models
     {
         public void ConnectToSimulator(string serverIp, int port, int innerPort);
         public void start();
-        public void getImage();
+        public string getImage();
         public void SetCommandValues(Command command);
-        public string imgToAnd();
     }
 }

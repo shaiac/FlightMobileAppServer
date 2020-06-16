@@ -36,7 +36,7 @@ namespace FlightMobileApp.Controllers
         [HttpGet]
         public string Get()
         {
-            return this.commandsManager.imgToAnd();
+            return this.commandsManager.getImage();
         }
 
     }
