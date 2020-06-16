@@ -33,10 +33,11 @@ namespace FlightMobileApp.Controllers
             }
         }
 
+        // GET: api/command
         [HttpGet]
-        public string Get()
+        public JsonResult Get()
         {
-            return this.commandsManager.getImage();
+            return new JsonResult(this.commandsManager.getImage());
         }
 
     }

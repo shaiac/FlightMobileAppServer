@@ -30,7 +30,7 @@ namespace FlightMobileApp.Models
             this.innerSimulator = new MyClient();
             createGetStrings();
             createSetStrings();
-            this.ConnectToSimulator("127.0.0.1", 5403, 0);
+            this.ConnectToSimulator("127.0.0.1", 5000, 0);
         }
         public void ConnectToSimulator(string serverIp, int port, int innerPort)
         {
